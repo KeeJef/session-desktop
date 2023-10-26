@@ -43,6 +43,8 @@ declare global {
         debugOnionRequests: boolean;
       };
     };
+    getSeedNodeList: () => Array<string> | undefined;
+    mmdbBuffer: Buffer;
     SessionSnodeAPI: SessionSnodeAPI;
     onLogin: (pw: string) => Promise<void>;
     persistStore?: Persistor;

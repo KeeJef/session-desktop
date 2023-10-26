@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import useHover from 'react-use/lib/useHover';
 import styled from 'styled-components';
 
-import countryLookup from 'country-code-lookup';
-import ip2country from 'ip2country';
+import { CountryResponse, Reader } from 'maxmind';
+
 import { Snode } from '../../data/data';
 import { onionPathModal } from '../../state/ducks/modalDialog';
 import {
@@ -76,6 +76,9 @@ const OnionCountryDisplay = ({ labelText, snodeIp }: { snodeIp?: string; labelTe
   return hoverable;
 };
 
+const reader = new Reader<CountryResponse>(window.mmdbBuffer);
+const lang = 'en';
+
 const OnionPathModalInner = () => {
   const onionPath = useSelector(getFirstOnionPath);
   const isOnline = useSelector(getIsOnline);
@@ -119,9 +122,11 @@ const OnionPathModalInner = () => {
           </StyledLightsContainer>
           <Flex container={true} flexDirection="column" alignItems="flex-start">
             {nodes.map((snode: Snode | any) => {
+              const countryLookup = reader.get(snode.ip || '0.0.0.0');
+              const countryName = countryLookup?.country?.names[lang];
               let labelText = snode.label
                 ? snode.label
-                : countryLookup.byIso(ip2country(snode.ip))?.country;
+                : countryName
               if (!labelText) {
                 labelText = window.i18n('unknownCountry');
               }

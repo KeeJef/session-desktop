@@ -83,7 +83,6 @@
     "bytebuffer": "^5.0.1",
     "classnames": "2.2.5",
     "config": "1.28.1",
-    "country-code-lookup": "^0.0.19",
     "curve25519-js": "https://github.com/oxen-io/curve25519-js",
     "dompurify": "^2.0.7",
     "electron-localshortcut": "^3.2.1",
@@ -94,12 +93,12 @@
     "fs-extra": "9.0.0",
     "glob": "7.1.2",
     "image-type": "^4.1.0",
-    "ip2country": "1.0.1",
     "libsession_util_nodejs": "https://github.com/oxen-io/libsession-util-nodejs/releases/download/v0.2.6/libsession_util_nodejs-v0.2.6.tar.gz",
     "libsodium-wrappers-sumo": "^0.7.9",
     "linkify-it": "^4.0.1",
     "lodash": "^4.17.21",
     "long": "^4.0.0",
+    "maxmind": "^4.3.16",
     "mic-recorder-to-mp3": "^2.2.2",
     "moment": "^2.29.4",
     "node-fetch": "^2.6.7",
@@ -258,7 +257,11 @@
         "StartupWMClass": "Session"
       },
       "asarUnpack": "node_modules/spellchecker/vendor/hunspell_dictionaries",
-      "target": ["deb", "rpm", "freebsd"],
+      "target": [
+        "deb",
+        "rpm",
+        "freebsd"
+      ],
       "icon": "build/icon-linux.icns"
     },
     "asarUnpack": [
@@ -349,6 +352,9 @@
       "!node_modules/libsession_util_nodejs/src/*",
       "ts/webworker/workers/node/libsession/*.node",
       "!dev-app-update.yml"
+    ],
+    "extraFiles": [
+      "mmdb/GeoLite2-Country.mmdb"
     ]
   }
 }
